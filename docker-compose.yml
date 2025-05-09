@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  express_app:
+    build: .
+    container_name: express_app
+    ports:
+      - "5000:3000"
+  
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    depends_on:
+      - express_app
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    restart: always
+
